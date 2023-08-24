@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import useOnline from "../utils/useOnline";
 import useRestaurant from "../utils/useRestaurant";
+import userContext from "../utils/userContext";
 
 const Restaurants = () => {
   const [searchText, setSearchText] = useState("");
   const [allRestaurants, setAllRestaurants] = useRestaurant();
   const [filteredRestaurants, setFilteredRestaurants] = useRestaurant();
-
+  const { user, setUser } = useContext(userContext);
   const isOnline = useOnline();
 
   if (!isOnline) {
@@ -31,6 +32,7 @@ const Restaurants = () => {
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
+
         <button
           className="p-2 bg-gray-500 rounded-md text-white font-semibold outline-none hover:bg-gray-600"
           onClick={() =>
@@ -43,6 +45,16 @@ const Restaurants = () => {
         >
           Search
         </button>
+        <input
+          type="text"
+          value={user.name}
+          onChange={(e) => setUser({ ...user, name: e.target.value })}
+        />
+        <input
+          type="text"
+          value={user.email}
+          onChange={(e) => setUser({ ...user, email: e.target.value })}
+        />
       </div>
       <div className="flex flex-wrap m-2 justify-center">
         {filteredRestaurants?.length === 0 ? (

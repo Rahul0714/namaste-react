@@ -1,11 +1,14 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { SiIfood } from "react-icons/si";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import useOnline from "../utils/useOnline";
+import store from "../redux/store";
 
 const Navbar = () => {
   const isOnline = useOnline();
-
+  const cartItems = useSelector((store) => store.cart.items);
+  console.log("this is items", cartItems);
   return (
     <div className="h-20 w-full border flex justify-between items-center p-4 bg-red-500 text-white font-mono font-semibold shadow-lg">
       <div className="mx-4 text-5xl text-white">
@@ -29,8 +32,8 @@ const Navbar = () => {
         <div className="cursor-pointer">
           <Link to="/about">About Us</Link>
         </div>
-        <div className="text-2xl cursor-pointer">
-          <AiOutlineShoppingCart />
+        <div className="text-2xl cursor-pointer flex items-center gap-2">
+          <AiOutlineShoppingCart /> ({cartItems.length})
         </div>
       </div>
     </div>

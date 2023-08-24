@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import userContext from "../utils/userContext";
 
 const RestaurantCard = ({ restaurant }) => {
+  const { user } = useContext(userContext);
   return (
     <Link
       className="w-[200px] border border-gray-500 m-4 flex flex-col rounded-md hover:scale-105 p-2 cursor-pointer"
@@ -22,7 +25,9 @@ const RestaurantCard = ({ restaurant }) => {
       <h2>Average Rating: {restaurant?.info?.avgRating}</h2>
 
       <h4>{restaurant?.info?.cuisines.join(", ")}</h4>
-      <h5>temp</h5>
+      <h5>
+        {user.name} - {user.email}
+      </h5>
     </Link>
   );
 };
