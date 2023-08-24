@@ -21,6 +21,9 @@ const Navbar = () => {
           <Link to="/">Home</Link>
         </div>
         <div className="cursor-pointer">
+          <Link to="/instamart">Instamart</Link>
+        </div>
+        <div className="cursor-pointer">
           <Link to="/contact">Contact Us</Link>
         </div>
         <div className="cursor-pointer">

@@ -22,6 +22,7 @@ const RestaurantCard = ({ restaurant }) => {
       <h2>Average Rating: {restaurant?.info?.avgRating}</h2>
 
       <h4>{restaurant?.info?.cuisines.join(", ")}</h4>
+      <h5>temp</h5>
     </Link>
   );
 };

@@ -1,31 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import useOnline from "../utils/useOnline";
+import useRestaurant from "../utils/useRestaurant";
 
 const Restaurants = () => {
   const [searchText, setSearchText] = useState("");
-  const [allRestaurants, setAllRestaurants] = useState(null);
-  const [filteredRestaurants, setFilteredRestaurants] = useState(null);
+  const [allRestaurants, setAllRestaurants] = useRestaurant();
+  const [filteredRestaurants, setFilteredRestaurants] = useRestaurant();
 
   const isOnline = useOnline();
-
-  useEffect(() => {
-    getRestaurants();
-  }, []);
-
-  async function getRestaurants() {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.6774769&lng=73.8512324&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
-    const json = await data.json();
-    setAllRestaurants(
-      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-    setFilteredRestaurants(
-      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-  }
 
   if (!isOnline) {
     return <h1>Oops! No Internet</h1>;
@@ -38,7 +22,7 @@ const Restaurants = () => {
       ))}
     </div>
   ) : (
-    <div className="h-screen w-full">
+    <div className="h-full w-full">
       <div className="h-[70px] w-full shadow-sm flex items-center">
         <input
           className="mx-4 outline-none p-2 border-b-gray-400 rounded-md border"
